@@ -16,7 +16,7 @@ from docutils import nodes
 from docutils.nodes import NodeVisitor as BaseTranslator
 from os import path
 from sphinx.locale import admonitionlabels
-from sphinx.util.osutil import SEP
+from sphinx.util.osutil import SEP, canon_path
 import io
 import posixpath
 import sys
@@ -42,7 +42,7 @@ class ConfluenceTranslator(BaseTranslator):
 
         # acquire the active document name from the builder
         assert 'source' in document
-        self.docname = self.builder.env.path2doc(document['source'])
+        self.docname = canon_path(self.builder.env.path2doc(document['source']))
 
         # determine the active document's parent path to assist it title mapping
         # for relative document uris
